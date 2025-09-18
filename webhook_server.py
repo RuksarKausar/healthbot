@@ -1,9 +1,19 @@
 from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware  # Added CORS import
 import uvicorn
 import os
 from datetime import datetime
 
 app = FastAPI(title="Healthcare Chatbot API", version="1.0.0")
+
+# Add CORS middleware - This fixes the connection error!
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins (websites) to call your API
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all HTTP methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allows all headers
+)
 
 # Healthcare knowledge base (lightweight)
 HEALTH_RESPONSES = {
